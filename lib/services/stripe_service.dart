@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
+import 'package:libs_e_commerce_app/core/constant.dart';
 
 class StripeService {
   StripeService._();
@@ -50,7 +51,9 @@ class StripeService {
       var response = await client.post(
         Uri.https('api.stripe.com', '/v1/payment_intents'),
         body: data,
-        headers: {"Content-type": 'application/x-www-form-urlencoded'},
+        headers: {
+          "Authorization": "Bearer $strKey",
+          "Content-type": 'application/x-www-form-urlencoded'},
       );
       var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes));
       if (decodedResponse != null) {
